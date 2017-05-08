@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class HandObject : MonoBehaviour {
 
-	public string HandType;
-	public GameObject AttackEffect;
-
-	private GameObject attackEffect;
+	public string Player;
 
 	// Use this for initialization
 	void Start () {
@@ -24,17 +21,19 @@ public class HandObject : MonoBehaviour {
 		if (col.tag == "Heart") {
 			//Destroy (col.gameObject);
 
-			if (HandType == "Left") {
+			print (Player);
+
+			if (Player == "P1ayer1") {
 				GameControl.winningText = "The winner is Player1";
 			}
 
-			if (HandType == "Right") {
+			if (Player == "P1ayer2") {
 				GameControl.winningText = "The winner is Player2";
 			}
 
 			GameControl.gameover = true;
 
-			//attackEffect = Instantiate (AttackEffect, col.transform.position, transform.rotation);
+
 		}
 
 
