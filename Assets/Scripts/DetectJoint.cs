@@ -17,6 +17,7 @@ public class DetectJoint : MonoBehaviour {
     private BodySourceManager bodyManager;
     private Body[] bodies;
 
+
     // Use this for initialization
     void Start () {
 		if(bodySrcManager == null)
@@ -46,6 +47,7 @@ public class DetectJoint : MonoBehaviour {
             // print("body is null");
             return;
         }
+
         foreach (var body in bodies)
         {
             if (body == null)
