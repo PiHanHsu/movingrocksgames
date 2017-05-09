@@ -37,6 +37,8 @@ public class GameControl : MonoBehaviour {
 	void Start () {
 		isPlaying = true;
 		ResetGame ();
+		LeftHand.SetActive (false);
+		RightHand.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -110,9 +112,10 @@ public class GameControl : MonoBehaviour {
 					isPlaying = false;
 					StartCoroutine (Gameover (winningText));
 					WinningText.GetComponent<TextMesh> ().text = "";
+					Destroy (diamond);
 					LeftHand.SetActive (false);
 					RightHand.SetActive (false);
-					Destroy (diamond);
+
 				}
 			}
 		}
@@ -124,6 +127,17 @@ public class GameControl : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
 		}
+
+		if (Input.GetKeyDown (KeyCode.F10)) {
+			if (LeftHand.activeSelf) {
+				LeftHand.SetActive (false);
+				RightHand.SetActive (false);
+			} else {
+				LeftHand.SetActive (true);
+				RightHand.SetActive (true);
+			}
+
+		}
 	}
 
 
@@ -133,13 +147,15 @@ public class GameControl : MonoBehaviour {
 		gameover = false;
 		Card1.SetActive (true);
 		Card2.SetActive (true);
+		card1_number = "0";
+		card2_number = "0";
+		NewGameText.SetActive (false);
+		/*
 		LeftHand.SetActive (true);
 		LeftHand.gameObject.transform.position = new Vector3 (-100f, 200f, 0);
 		RightHand.SetActive (true);
 		RightHand.gameObject.transform.position = new Vector3 (100f, 200f, 0);
-		card1_number = "0";
-		card2_number = "0";
-		NewGameText.SetActive (false);
+        */
 
 	}
 

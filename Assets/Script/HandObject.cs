@@ -19,20 +19,16 @@ public class HandObject : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D col) {
 
 		if (col.tag == "Heart") {
-			//Destroy (col.gameObject);
 
-			print (Player);
-
-			if (Player == "P1ayer1") {
+			if (Player == "Player1") {
 				GameControl.winningText = "The winner is Player1";
 			}
 
-			if (Player == "P1ayer2") {
+			if (Player == "Player2") {
 				GameControl.winningText = "The winner is Player2";
 			}
 
 			GameControl.gameover = true;
-
 
 		}
 

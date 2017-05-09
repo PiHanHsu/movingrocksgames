@@ -129,6 +129,14 @@ public class DetectPlayers : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		/*
+		if (GameControl.gameover) {
+			_player1 = null;
+			_player2 = null;
+		}
+		*/
+
 		if (bodyManager == null)
 		{
 			Debug.Log("bodyManager is null");
