@@ -13,11 +13,17 @@ public class GamePlayingFlow : MonoBehaviour {
     public InputField NameInputField;
     public GameObject Targets;
     public UIControl UIControl;
+
+	public GameObject HitTargetEffect;
+	public GameObject Target;
+
     private string _playerName = "Anonymous";
     private int _score = 0;
     private float _timeLeft = 0;
     private bool _gamePlaying = false;
     private float _targetBaseScale = 25f;
+	private GameObject _targetObject;
+
 
     // Use this for initialization
     void Start() {
@@ -46,6 +52,8 @@ public class GamePlayingFlow : MonoBehaviour {
         Targets.SetActive(true);
         UIControl.hideAll();
         _gamePlaying = true;
+		//createTarget ();
+
     }
 
     public void PlayingGame()
@@ -93,12 +101,30 @@ public class GamePlayingFlow : MonoBehaviour {
 
     public void AddScore()
     {
-        _score += 100;
+        //_score += 100;
     }
 
+	public void HitTarget(Vector3 pos){
+	
+		//Destroy (_targetObject);
+		_score += 100;
+		Instantiate (HitTargetEffect, pos, transform.rotation);
+		Destroy (HitTargetEffect, 2);
+		//createTarget ();
+	}
+
+	public void ReCreateTarget(){
+		Destroy (_targetObject);
+		createTarget ();
+	}
     public void setName()
     {
         _playerName = NameInputField.text;
         if (_playerName == "") { _playerName = "Anonymous"; }
     }
+
+	public void createTarget(){
+		Vector3 pos = new Vector3(UnityEngine.Random.Range(940, -940), UnityEngine.Random.Range(500, -500), 0);	
+		_targetObject = Instantiate (Target, pos, transform.rotation);
+	}
 }

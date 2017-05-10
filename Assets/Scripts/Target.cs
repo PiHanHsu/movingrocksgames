@@ -11,7 +11,7 @@ public class Target : MonoBehaviour {
 
     void Awake ()
     {
-        _anim = GetComponent<Animator>();
+        //_anim = GetComponent<Animator>();
     }
 
 	// Use this for initialization
@@ -26,7 +26,7 @@ public class Target : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
-            hitTarget();
+            //hitTarget();
         }
 
         if (_probationTime > 0)
@@ -42,19 +42,32 @@ public class Target : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D hit)
     {
-        hitTarget();
+		//hitTarget();
     }
 
-    private void hitTarget()
+	void OnTriggerEnter2D (Collider2D col) {
+
+		if (col.tag != "Body") {
+			hitTarget (transform.position);
+		} else {
+			//Destroy (gameObject);
+			randTarget();
+		}
+
+	}
+
+
+	private void hitTarget(Vector3 pos)
     {
         if (_probationTime == 0)
         {
             GamePlayingFlow.AddScore();
+			GamePlayingFlow.HitTarget (pos);
             _probationTime = 0.15f;
         }
         _spriteRenderer.enabled = false;
         randTarget();
-        _anim.SetTrigger("Click");
+        //_anim.SetTrigger("Click");
     }
 
     private void randTarget()
