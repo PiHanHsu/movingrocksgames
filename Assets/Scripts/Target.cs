@@ -39,18 +39,13 @@ public class Target : MonoBehaviour {
         }
         // print(_probationTime.ToString("00:00.00"));
     }
-
-    void OnCollisionEnter2D(Collision2D hit)
-    {
-		//hitTarget();
-    }
+		
 
 	void OnTriggerEnter2D (Collider2D col) {
 
 		if (col.tag != "Body") {
 			hitTarget (transform.position);
 		} else {
-			//Destroy (gameObject);
 			randTarget();
 		}
 

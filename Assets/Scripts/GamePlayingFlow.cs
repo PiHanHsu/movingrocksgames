@@ -23,20 +23,25 @@ public class GamePlayingFlow : MonoBehaviour {
     private bool _gamePlaying = false;
     private float _targetBaseScale = 25f;
 	private GameObject _targetObject;
-
+	private GameObject _hitTargetEffect;
+	private int _numberOfTargets;
 
     // Use this for initialization
     void Start() {
         // NameInputField.onValueChanged.AddListener(delegate { setName(); });
         showTimeAndScore();
-        float scale = GameSettings.GetSizeOfTarget();
+		float scale = _targetBaseScale + GameSettings.GetSizeOfTarget()* 15;
         Targets.transform.localScale = new Vector3(scale, scale, 1);
+		_numberOfTargets = (int)GameSettings.GetNumOfTarget ();
+
     }
 
     // Update is called once per frame
     void Update() {
+
         if (_timeLeft > 0f)
         {
+
             PlayingGame();
         } else if (_gamePlaying == true)
         {
@@ -52,7 +57,13 @@ public class GamePlayingFlow : MonoBehaviour {
         Targets.SetActive(true);
         UIControl.hideAll();
         _gamePlaying = true;
-		//createTarget ();
+		print (_numberOfTargets);
+		if (_numberOfTargets > 1) {
+			for (int i = 1; i < _numberOfTargets; i++){
+				createTarget ();
+			}
+		}
+
 
     }
 
@@ -105,18 +116,13 @@ public class GamePlayingFlow : MonoBehaviour {
     }
 
 	public void HitTarget(Vector3 pos){
-	
-		//Destroy (_targetObject);
-		_score += 100;
-		Instantiate (HitTargetEffect, pos, transform.rotation);
-		Destroy (HitTargetEffect, 2);
-		//createTarget ();
-	}
 
-	public void ReCreateTarget(){
-		Destroy (_targetObject);
-		createTarget ();
+		_score += 100;
+		_hitTargetEffect = Instantiate (HitTargetEffect, pos, transform.rotation);
+		Destroy (_hitTargetEffect, 2);
+
 	}
+		
     public void setName()
     {
         _playerName = NameInputField.text;
