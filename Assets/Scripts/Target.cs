@@ -8,6 +8,17 @@ public class Target : MonoBehaviour {
     private Animator _anim;
     private SpriteRenderer _spriteRenderer;
     private float _probationTime = 0.15f; // In seconds.
+	public bool isScaling = false;
+
+
+	public float scaleFactor = 1.5f;
+
+	private bool scalingUp = true;
+	public float scaleSpeed;
+	public float scaleRate;
+	private float scaleTimer;
+	private Vector3 startScale;
+	private Vector3 endScale;
 
     void Awake ()
     {
@@ -19,6 +30,10 @@ public class Target : MonoBehaviour {
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _spriteRenderer.enabled = false;
         randTarget();
+
+		startScale = gameObject.transform.localScale;
+		endScale = new Vector3 (startScale.x * scaleFactor, startScale.y * scaleFactor, startScale.z * scaleFactor);
+
     }
 
     // Update is called once per frame
@@ -37,6 +52,27 @@ public class Target : MonoBehaviour {
             _probationTime = 0;
             _spriteRenderer.enabled = true;
         }
+
+		if(isScaling)
+		{
+			scaleTimer += Time.deltaTime;
+
+			if (scalingUp)
+			{
+				transform.localScale = Vector3.Lerp(transform.localScale, endScale, scaleSpeed * Time.deltaTime);
+			}
+			else if (!scalingUp)
+			{
+				transform.localScale = Vector3.Lerp(transform.localScale, startScale, scaleSpeed * Time.deltaTime);
+			}
+
+			if(scaleTimer >= scaleRate)
+			{
+				if (scalingUp) { scalingUp = false; }
+				else if (!scalingUp) { scalingUp = true; }
+				scaleTimer = 0;
+			}
+		}
         // print(_probationTime.ToString("00:00.00"));
     }
 		

@@ -21,7 +21,7 @@ public class GamePlayingFlow : MonoBehaviour {
     private int _score = 0;
     private float _timeLeft = 0;
     private bool _gamePlaying = false;
-    private float _targetBaseScale = 25f;
+    private float _targetBaseScale = 0f;
 	private GameObject _targetObject;
 	private GameObject _hitTargetEffect;
 	private int _numberOfTargets;
@@ -30,7 +30,7 @@ public class GamePlayingFlow : MonoBehaviour {
     void Start() {
         // NameInputField.onValueChanged.AddListener(delegate { setName(); });
         showTimeAndScore();
-		float scale = _targetBaseScale + GameSettings.GetSizeOfTarget()* 15;
+		float scale = _targetBaseScale + GameSettings.GetSizeOfTarget()* 10;
         Targets.transform.localScale = new Vector3(scale, scale, 1);
 		_numberOfTargets = (int)GameSettings.GetNumOfTarget ();
 
