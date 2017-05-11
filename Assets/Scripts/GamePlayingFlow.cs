@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +26,7 @@ public class GamePlayingFlow : MonoBehaviour {
 	private GameObject _targetObject;
 	private GameObject _hitTargetEffect;
 	private int _numberOfTargets;
+	private string imagePath;
 
     // Use this for initialization
     void Start() {
@@ -33,6 +35,12 @@ public class GamePlayingFlow : MonoBehaviour {
 		float scale = _targetBaseScale + GameSettings.GetSizeOfTarget()* 10;
         Targets.transform.localScale = new Vector3(scale, scale, 1);
 		_numberOfTargets = (int)GameSettings.GetNumOfTarget ();
+
+		imagePath = PlayerPrefs.GetString("imagePath");
+		if (imagePath == "") {
+			imagePath = @"C:\Users\asus\Desktop\Images\Blue_bubble.png";
+		}
+		LoadPNG (imagePath);
 
     }
 
@@ -132,5 +140,21 @@ public class GamePlayingFlow : MonoBehaviour {
 	public void createTarget(){
 		Vector3 pos = new Vector3(UnityEngine.Random.Range(940, -940), UnityEngine.Random.Range(500, -500), 0);	
 		_targetObject = Instantiate (Target, pos, transform.rotation);
+	}
+
+	public void LoadPNG(string filePath){
+		Texture2D tex = null;
+		byte[] fileData;
+
+		if (File.Exists (filePath)) {
+			fileData = File.ReadAllBytes (filePath);
+			tex = new Texture2D (2, 2);
+			tex.LoadImage (fileData);
+
+		}
+
+		Target.GetComponent<SpriteRenderer> ().sprite = Sprite.Create (tex, new Rect (0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f),100);
+
+
 	}
 }
