@@ -35,6 +35,19 @@ public class FEMCalibrator : MonoBehaviour {
     void Start () {
         this.kinectSensor = KinectSensor.GetDefault();
         coordinateMapper = this.kinectSensor.CoordinateMapper;
+
+		string saved = PlayerPrefs.GetString ("Saved");
+		if (saved == "Saved") {
+			float n1_x = PlayerPrefs.GetFloat ("n1_x");
+			float n1_y = PlayerPrefs.GetFloat ("n1_y");
+			float n3_x = PlayerPrefs.GetFloat ("n3_x");
+			float n3_y = PlayerPrefs.GetFloat ("n3_y");
+
+			node1.transform.position = new Vector3 (n1_x, n1_y, 0);
+			node3.transform.position = new Vector3 (n3_x, n3_y, 0);
+
+		}
+
     }
 
     void Update()
@@ -98,4 +111,14 @@ public class FEMCalibrator : MonoBehaviour {
     {
         n3Position = position;
     }
+
+
+	public void saveCalibrationData(){
+		
+		PlayerPrefs.SetFloat ("n1_x", n1Position.x);
+		PlayerPrefs.SetFloat ("n1_y", n1Position.y);
+		PlayerPrefs.SetFloat ("n3_x", n3Position.x);
+		PlayerPrefs.SetFloat ("n3_y", n3Position.y);
+		PlayerPrefs.SetString ("Saved", "Saved");
+	}
 }
