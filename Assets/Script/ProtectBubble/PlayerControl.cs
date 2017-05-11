@@ -9,6 +9,7 @@ public class PlayerControl : MonoBehaviour {
 	public GameObject AddHP;
 	public AudioSource CoinSound;
 	public AudioSource AddHPSound;
+	public AudioSource ExploSound;
 	public GameObject ExploEffect;
 
 	private GameObject exploEffect;
@@ -52,6 +53,7 @@ public class PlayerControl : MonoBehaviour {
 			}
 		}
 		if (col.tag == "Missile") {
+			ExploSound.Play ();
 			Destroy (col.gameObject);
 			if (HP > 0) {
 				HP -= 10;

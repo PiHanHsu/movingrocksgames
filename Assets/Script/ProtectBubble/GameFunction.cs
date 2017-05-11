@@ -8,7 +8,6 @@ public class GameFunction : MonoBehaviour {
 
 	public GameObject Left_Missile;
 	public GameObject Right_Missile;
-	public GameObject Top_Missile;
 	public GameObject CoinObject;
 	public GUISkin PlayingSkin;
 	public AudioSource BackgroundSound;
@@ -20,9 +19,15 @@ public class GameFunction : MonoBehaviour {
 	private bool isPlaying;
 	private float millileTime1 = 4f;
 	private float millileTime2 = 0f;
-	private float millileTime3 = 0f;
 	private float coinTime = 0f;
 	private float addHPTime = 0f;
+	private float addLevelTime;
+	private float launchMisslePeriod = 5f;
+
+	private GameObject left_Missile;
+	private GameObject right_Missile;
+	private GameObject coinObject;
+
 
 	// Use this for initialization
 	void Start () {
@@ -41,24 +46,33 @@ public class GameFunction : MonoBehaviour {
 		if (isPlaying) {
 			millileTime1 += Time.deltaTime;
 			millileTime2 += Time.deltaTime;
-			millileTime3 += Time.deltaTime;
 			coinTime += Time.deltaTime;
+			addLevelTime += Time.deltaTime;
+
+
+			if (addLevelTime > 30f) {
+				launchMisslePeriod -= 1.0f;
+				addLevelTime = 0f;
+			}
 
 			if (coinTime > 1f) {
 				Vector3 pos = new Vector3 (Random.Range(-900f, 900f), 500f, 0);
-				Instantiate (CoinObject, pos, transform.rotation);
+				coinObject =  Instantiate (CoinObject, pos, transform.rotation);
+				Destroy (coinObject, 10);
 				coinTime = 0f;
 			}
 
-			if (millileTime1 > 4f) {
+			if (millileTime1 > launchMisslePeriod) {
 				Vector3 pos = new Vector3 (-900f, Random.Range(-500f, 500f), 0);
-				Instantiate (Left_Missile, pos, transform.rotation);
+				left_Missile = Instantiate (Left_Missile, pos, transform.rotation);
+				Destroy (left_Missile, 10);
 				millileTime1 = 0f;
 			}
 
-			if (millileTime2 > 5f) {
+			if (millileTime2 > (launchMisslePeriod+1.0f)) {
 				Vector3 pos = new Vector3 (950f, Random.Range(-500f, 500f), 0);
-				Instantiate (Right_Missile, pos, Quaternion.Euler(0, 0, 180));
+				right_Missile = Instantiate (Right_Missile, pos, Quaternion.Euler(0, 0, 180));
+				Destroy (right_Missile, 10);
 				millileTime2 = 1.0f;
 			}
 
