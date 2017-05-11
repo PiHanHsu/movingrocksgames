@@ -15,7 +15,6 @@ public class BodyCircle : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D col){
-		print ("hit");
-		//Destroy (col.gameObject);
+		print ("hit body");
 	}
 }

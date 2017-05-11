@@ -6,7 +6,7 @@ public class DisableSprite : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		gameObject.GetComponent<SpriteRenderer> ().enabled = false;
 	}
 	
 	// Update is called once per frame
