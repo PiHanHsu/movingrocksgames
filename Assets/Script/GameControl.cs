@@ -61,13 +61,13 @@ public class GameControl : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.LeftShift)) {
 				Destroy (button1);
 				int r = (int)Random.Range (1, 5);
-				Card1_Number.GetComponent<TextMesh> ().text = r.ToString ();
+				card1_number = r.ToString ();
 			}
 
 			if (Input.GetKeyDown (KeyCode.RightShift)) {
 				Destroy (button2);
 				int r = (int)Random.Range (1, 5);
-				Card2_Number.GetComponent<TextMesh> ().text = r.ToString ();
+				card2_number = r.ToString ();
 			}
 
 
