@@ -9,7 +9,9 @@ public class PlayerControl : MonoBehaviour {
 	public GameObject AddHP;
 	public AudioSource CoinSound;
 	public AudioSource AddHPSound;
+	public GameObject ExploEffect;
 
+	private GameObject exploEffect;
 	// Use this for initialization
 	void Start () {
 		HP = 100f;
@@ -45,7 +47,7 @@ public class PlayerControl : MonoBehaviour {
 			Score += 100;
 			Destroy (col.gameObject);
 			if (Score % 1000 == 0) {
-				Vector3 pos = new Vector3 (Random.Range(-7.5f, 7.5f), 5f, 0);
+				Vector3 pos = new Vector3 (Random.Range(-750f, 750f), 500f, 0);
 				Instantiate (AddHP, pos, transform.rotation);
 			}
 		}
@@ -53,6 +55,13 @@ public class PlayerControl : MonoBehaviour {
 			Destroy (col.gameObject);
 			if (HP > 0) {
 				HP -= 10;
+				gameObject.transform.localScale += new Vector3 (5f, 5f, 0);
+			} else {
+
+				exploEffect = Instantiate (ExploEffect, gameObject.transform.position, ExploEffect.transform.rotation);
+				Destroy (exploEffect, 3);
+				Destroy (gameObject);
+				StartCoroutine (Gameover ());
 			}
 		}
 
@@ -60,9 +69,15 @@ public class PlayerControl : MonoBehaviour {
 			Destroy (col.gameObject);
 			if (HP < 100 ) {
 				HP += 10;
+				gameObject.transform.localScale -= new Vector3 (5f, 5f, 0);
 				AddHPSound.Play ();
 			}
 		}
+	}
 
+	IEnumerator Gameover() {
+
+		yield return new WaitForSeconds (2);
+		Destroy (gameObject);
 	}
 }

@@ -19,7 +19,7 @@ public class Missile : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D col) {
 	   
 		Destroy (this.gameObject);
-		Instantiate (Explosion, col.transform.position, transform.rotation);
+		//Instantiate (Explosion, col.transform.position, transform.rotation);
 	
 	}
 

@@ -19,7 +19,7 @@ public class LeffMissile : MonoBehaviour {
 
 		if (col.tag == "Player") {
 			//Destroy (gameObject);
-			Instantiate (Explosion, gameObject.transform.position, transform.rotation);	
+			//Instantiate (Explosion, gameObject.transform.position, transform.rotation);	
 			Explo.Play ();
 		}
 	}
