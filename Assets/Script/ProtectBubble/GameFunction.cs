@@ -58,21 +58,21 @@ public class GameFunction : MonoBehaviour {
 			if (coinTime > 1f) {
 				Vector3 pos = new Vector3 (Random.Range(-900f, 900f), 500f, 0);
 				coinObject =  Instantiate (CoinObject, pos, transform.rotation);
-				Destroy (coinObject, 10);
+				Destroy (coinObject, 7);
 				coinTime = 0f;
 			}
 
 			if (millileTime1 > launchMisslePeriod) {
 				Vector3 pos = new Vector3 (-900f, Random.Range(-500f, 500f), 0);
 				left_Missile = Instantiate (Left_Missile, pos, transform.rotation);
-				Destroy (left_Missile, 10);
+				Destroy (left_Missile, 7);
 				millileTime1 = 0f;
 			}
 
 			if (millileTime2 > (launchMisslePeriod+1.0f)) {
 				Vector3 pos = new Vector3 (950f, Random.Range(-500f, 500f), 0);
 				right_Missile = Instantiate (Right_Missile, pos, Quaternion.Euler(0, 0, 180));
-				Destroy (right_Missile, 10);
+				Destroy (right_Missile, 7);
 				millileTime2 = 1.0f;
 			}
 
