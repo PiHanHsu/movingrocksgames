@@ -18,7 +18,7 @@ public class Explosion : MonoBehaviour {
 	}
 
 	void AnimationStart() {
-		Explo.Play ();
+		//Explo.Play ();
 	}
 
 	void AnimationEnd() {
