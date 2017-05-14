@@ -86,23 +86,7 @@ public class DetectTwoPlayers : MonoBehaviour {
 				Debug.Log("bodyManager is null when start");
 				return;
 			}
-			InitPlayers ();
 		}
-	}
-
-	void InitPlayers() {
-		if (_player1Object != null) {
-			Destroy (_player1Object);
-		}
-		_player1Object = Instantiate (Player1, new Vector3 (-500, 0, 0), transform.rotation);
-		_player1Object.SetActive (false);
-
-		if (_player2Object != null) {
-			Destroy (_player2Object);
-		}
-		_player2Object = Instantiate (Player2, new Vector3 (500, 0, 0), transform.rotation);
-		_player2Object.SetActive (false);
-
 	}
 
 
@@ -217,38 +201,36 @@ public class DetectTwoPlayers : MonoBehaviour {
 
 		if (_player1 != null) {
 
-			_player1Object.SetActive (true);
+			Player1.SetActive (true);
 			var cameraPos_r = _player1.Joints[TrackedJoint].Position;
 			var colorPos_r = coordinateMapper.MapCameraPointToColorSpace(cameraPos_r);
 			var worldPos_r = FEMCalibrator.MapInducingPointToWorldSpace(colorPos_r);
 
 			if (!Double.IsInfinity(worldPos_r.x) && !Double.IsInfinity(worldPos_r.y))
 			{
-				_player1Object.transform.position = worldPos_r;
+				Player1.transform.position = worldPos_r;
 			}
 
 		} else {
-			_player1Object.SetActive (false);
+			Player1.SetActive (false);
 		}
 
 		if (_player2 != null) {
 
-			_player2Object.SetActive (true);
+			Player2.SetActive (true);
 			var cameraPos_r = _player2.Joints[TrackedJoint].Position;
 			var colorPos_r = coordinateMapper.MapCameraPointToColorSpace(cameraPos_r);
 			var worldPos_r = FEMCalibrator.MapInducingPointToWorldSpace(colorPos_r);
 
 			if (!Double.IsInfinity(worldPos_r.x) && !Double.IsInfinity(worldPos_r.y))
 			{
-				_player2Object.transform.position = worldPos_r;
+				Player2.transform.position = worldPos_r;
 			}
 
 		} else {
-			_player2Object.SetActive (false);
+			Player2.SetActive (false);
 		}
-
-
-
+			
 		//TrackingBodiesText.text = "Tracking Bodies: " + trackedBodies.Count;
 
 	}

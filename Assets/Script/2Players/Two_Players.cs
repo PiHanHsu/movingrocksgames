@@ -8,6 +8,8 @@ public class Two_Players : MonoBehaviour {
 	public GameObject Left_Launcher;
 	public GameObject Right_Missile;
 	public GameObject Right_Launcher;
+	public GameObject Player1;
+	public GameObject Player2;
 
 	public GameObject HP_Level_1P;
 	public GameObject HP_Text_1P;
