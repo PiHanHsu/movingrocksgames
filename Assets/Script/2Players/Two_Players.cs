@@ -46,6 +46,7 @@ public class Two_Players : MonoBehaviour {
 			WinningText.SetActive (false);
 			if (bubble_time > 10.0f) {
 				bubble = Instantiate (Bubble, new Vector3 (0, -550, 0), Bubble.transform.rotation);
+				Destroy (bubble, 5);
 				bubble_time = 0f;
 			}
 
@@ -56,10 +57,12 @@ public class Two_Players : MonoBehaviour {
 
 			if (Input.GetKeyDown (KeyCode.V)) {
 				left_Missile = Instantiate (Left_Missile, new Vector3 (Left_Launcher.gameObject.transform.position.x + 100, Left_Launcher.gameObject.transform.position.y, 0), transform.rotation);
+				Destroy (left_Missile, 6);
 			}
 
 			if (Input.GetKeyDown (KeyCode.Slash)) {
 				right_Missile = Instantiate (Right_Missile, new Vector3 (Right_Launcher.gameObject.transform.position.x - 100, Right_Launcher.gameObject.transform.position.y, 0), Right_Missile.transform.rotation);
+				Destroy (right_Missile, 6);
 			}
 
 
