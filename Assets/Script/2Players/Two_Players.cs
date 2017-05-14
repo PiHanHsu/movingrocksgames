@@ -13,6 +13,9 @@ public class Two_Players : MonoBehaviour {
 	public GameObject HP_Text_1P;
 	public GameObject HP_Level_2P;
 	public GameObject HP_Text_2P;
+	public static float hp_1p;
+	public static float hp_2p;
+
 
 	public GameObject WinningText;
 	public GameObject NewGameText;
@@ -30,7 +33,7 @@ public class Two_Players : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		ResetGame ();
 	}
 
 	// Update is called once per frame
@@ -51,16 +54,27 @@ public class Two_Players : MonoBehaviour {
 			}
 
 
-			if (Input.GetKeyDown (KeyCode.Z)) {
+			if (Input.GetKeyDown (KeyCode.V)) {
 				left_Missile = Instantiate (Left_Missile, new Vector3 (Left_Launcher.gameObject.transform.position.x + 100, Left_Launcher.gameObject.transform.position.y, 0), transform.rotation);
 			}
 
 			if (Input.GetKeyDown (KeyCode.Slash)) {
 				right_Missile = Instantiate (Right_Missile, new Vector3 (Right_Launcher.gameObject.transform.position.x - 100, Right_Launcher.gameObject.transform.position.y, 0), Right_Missile.transform.rotation);
 			}
+
+
+			HP_Text_1P.GetComponent<TextMesh>().text = hp_1p.ToString() +  " / 100";
+			HP_Level_1P.transform.localScale = new Vector3 (hp_1p * 3f , 200f, 1);
+			HP_Text_2P.GetComponent<TextMesh>().text = hp_2p.ToString()  + " / 100";
+			HP_Level_2P.transform.localScale = new Vector3 (hp_2p * 3f, 200f, 1);
+
+			if (hp_1p <= 0 || hp_2p <= 0) {
+				isPlaying = false;
+			}
+
 		} else {
 			NewGameText.SetActive (true);
-			if (HP_Level_1P.transform.localScale.x > 0) {
+			if (hp_1p > 0) {
 				WinningText.GetComponent<TextMesh> ().text = "The Winner is Mario";
 			} else {
 				WinningText.GetComponent<TextMesh> ().text = "The Winner is Luigi";
@@ -75,9 +89,9 @@ public class Two_Players : MonoBehaviour {
 
 	void ResetGame(){
 		isPlaying = true;
-		HP_Level_1P.transform.localScale = new Vector3 (300f, 200f, 1);
-		HP_Text_1P.GetComponent<TextMesh>().text = "100 / 100";
-		HP_Level_2P.transform.localScale = new Vector3 (300f, 200f, 1);
-		HP_Text_2P.GetComponent<TextMesh>().text = "100 / 100";
+
+		hp_1p = 100f;
+		hp_2p = 100f;
+
 	}
 }

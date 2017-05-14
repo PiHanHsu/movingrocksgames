@@ -41,12 +41,14 @@ public class Players_Behavior : MonoBehaviour {
 
 			if (col.tag == "Missile") {
 				Destroy (col.gameObject);
-				hp_level -= 10f;
-				HP_Text.GetComponent<TextMesh>().text = hp_level.ToString() + " / 100";
-				HP_Level.transform.localScale -= new Vector3 (whp, 0, 0);
-				if (hp_level < 1.0 ) {
-					Two_Players.isPlaying = false;
+				if (gameObject.tag == "Mario") {
+					Two_Players.hp_1p -= 10;
 				}
+
+				if (gameObject.tag == "Luigi") {
+					Two_Players.hp_2p -= 10;
+				}
+
 			}
 		}
 	}
