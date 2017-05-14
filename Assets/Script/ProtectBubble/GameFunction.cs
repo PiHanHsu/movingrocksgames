@@ -12,6 +12,8 @@ public class GameFunction : MonoBehaviour {
 	public GUISkin PlayingSkin;
 	public AudioSource BackgroundSound;
 	public GameObject GameoverSound;
+	public GameObject WinningText;
+	public GameObject NewGameText;
 
 	public Texture GUI_hp;
 	public static float GameTime;
@@ -33,7 +35,8 @@ public class GameFunction : MonoBehaviour {
 	void Start () {
 		BackgroundSound.Play ();
 		GameTime = Time.time;
-		isPlaying = true;
+		isPlaying = false;
+		NewGameText.SetActive (true);
 	}
 	
 	// Update is called once per frame
@@ -44,6 +47,8 @@ public class GameFunction : MonoBehaviour {
 		}
 
 		if (isPlaying) {
+			WinningText.SetActive (false);
+			NewGameText.SetActive (false);
 			millileTime1 += Time.deltaTime;
 			millileTime2 += Time.deltaTime;
 			coinTime += Time.deltaTime;
@@ -56,28 +61,38 @@ public class GameFunction : MonoBehaviour {
 			}
 
 			if (coinTime > 1f) {
-				Vector3 pos = new Vector3 (Random.Range(-900f, 900f), 500f, 0);
-				coinObject =  Instantiate (CoinObject, pos, transform.rotation);
+				Vector3 pos = new Vector3 (Random.Range (-900f, 900f), 500f, 0);
+				coinObject = Instantiate (CoinObject, pos, transform.rotation);
 				Destroy (coinObject, 7);
 				coinTime = 0f;
 			}
 
 			if (millileTime1 > launchMisslePeriod) {
-				Vector3 pos = new Vector3 (-900f, Random.Range(-500f, 500f), 0);
+				Vector3 pos = new Vector3 (-900f, Random.Range (-500f, 500f), 0);
 				left_Missile = Instantiate (Left_Missile, pos, transform.rotation);
 				Destroy (left_Missile, 7);
 				millileTime1 = 0f;
 			}
 
-			if (millileTime2 > (launchMisslePeriod+1.0f)) {
-				Vector3 pos = new Vector3 (950f, Random.Range(-500f, 500f), 0);
-				right_Missile = Instantiate (Right_Missile, pos, Quaternion.Euler(0, 0, 180));
+			if (millileTime2 > (launchMisslePeriod + 1.0f)) {
+				Vector3 pos = new Vector3 (950f, Random.Range (-500f, 500f), 0);
+				right_Missile = Instantiate (Right_Missile, pos, Quaternion.Euler (0, 0, 180));
 				Destroy (right_Missile, 7);
 				millileTime2 = 1.0f;
 			}
+		} 
 
+		if (Input.GetKeyDown (KeyCode.Return)) {
+			ResetGame ();
+		
 		}
 
+	}
+
+	void ResetGame(){
+		BackgroundSound.Play ();
+		GameTime = Time.time;
+		isPlaying = true;
 	}
 
 	void OnGUI() {
@@ -115,9 +130,10 @@ public class GameFunction : MonoBehaviour {
 	}
 
 	IEnumerator GoToGameover() {
-		
 		yield return new WaitForSeconds (5);
-		SceneManager.LoadScene ("Gameover");
+		NewGameText.SetActive (true);
+		WinningText.GetComponent<TextMesh> ().text = "You Score is " + PlayerControl.Score;
+		WinningText.SetActive (true);
 	}
 }
 

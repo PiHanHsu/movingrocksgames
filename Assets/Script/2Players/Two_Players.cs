@@ -15,8 +15,8 @@ public class Two_Players : MonoBehaviour {
 	public GameObject HP_Text_1P;
 	public GameObject HP_Level_2P;
 	public GameObject HP_Text_2P;
-	public static float hp_1p;
-	public static float hp_2p;
+	public static float hp_1p = 100f;
+	public static float hp_2p = 100f;
 
 
 	public GameObject WinningText;
@@ -35,7 +35,7 @@ public class Two_Players : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		ResetGame ();
+		isPlaying = false;
 	}
 
 	// Update is called once per frame
@@ -79,12 +79,18 @@ public class Two_Players : MonoBehaviour {
 
 		} else {
 			NewGameText.SetActive (true);
-			if (hp_1p > 0) {
-				WinningText.GetComponent<TextMesh> ().text = "The Winner is Mario";
+			if (hp_1p == 100 && hp_2p == 100) {
+				WinningText.SetActive (false);
 			} else {
-				WinningText.GetComponent<TextMesh> ().text = "The Winner is Luigi";
+				if (hp_1p > 0) {
+					WinningText.GetComponent<TextMesh> ().text = "The Winner is Mario";
+				} else {
+					WinningText.GetComponent<TextMesh> ().text = "The Winner is Luigi";
+				}
+				WinningText.SetActive (true);
 			}
-			WinningText.SetActive (true);
+
+
 		}
 			
 		if (Input.GetKeyDown (KeyCode.Return)) {
