@@ -35,8 +35,7 @@ public class GameControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		isPlaying = true;
-		ResetGame ();
+		isPlaying = false;
 		LeftHand.SetActive (false);
 		RightHand.SetActive (false);
 	}
