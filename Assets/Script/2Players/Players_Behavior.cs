@@ -5,6 +5,7 @@ using UnityEngine;
 public class Players_Behavior : MonoBehaviour {
 
 	public GameObject ProtectBubble;
+	public GameObject HitEffect;
 	public GameObject HP_Level;
 	public GameObject HP_Text;
 
@@ -12,6 +13,7 @@ public class Players_Behavior : MonoBehaviour {
 	private float protectingTime;
 	private float hp_level= 100f;
 	private float whp;
+	private GameObject hitEffect;
 
 	// Use this for initialization
 	void Start () {
@@ -36,10 +38,12 @@ public class Players_Behavior : MonoBehaviour {
 			if (col.tag == "Bubble") {
 				ProtectBubble.SetActive (true);
 				protectingTime = 0;
+
 				Destroy (col.gameObject);
 			}
 
 			if (col.tag == "Missile") {
+				hitEffect = Instantiate (HitEffect, col.gameObject.transform.position, HitEffect.transform.rotation);
 				Destroy (col.gameObject);
 				if (gameObject.tag == "Mario") {
 					Two_Players.hp_1p -= 10;

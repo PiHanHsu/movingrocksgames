@@ -32,6 +32,7 @@ public class Two_Players : MonoBehaviour {
 	private GameObject bubble;
 
 	private float bubble_time;
+	private float millsile_time;
 
 	// Use this for initialization
 	void Start () {
@@ -42,18 +43,28 @@ public class Two_Players : MonoBehaviour {
 	void Update () {
 
 		bubble_time += Time.deltaTime;
+		millsile_time += Time.deltaTime;
 
 		if (isPlaying) {
 			NewGameText.SetActive (false);
 			WinningText.SetActive (false);
-			if (bubble_time > 10.0f) {
-				bubble = Instantiate (Bubble, new Vector3 (0, -550, 0), Bubble.transform.rotation);
-				Destroy (bubble, 5);
+			if (bubble_time > 3.0f) {
+				bubble = Instantiate (Bubble, new Vector3 (Random.Range(-600, 600), -550, 0), Bubble.transform.rotation);
+				Destroy (bubble, 15);
 				bubble_time = 0f;
 			}
 
 			if (bubble != null) {
-				bubble.transform.position += new Vector3 (0, 10f, 0);
+				bubble.transform.position += new Vector3 (0, 5f, 0);
+			}
+
+
+			if (millsile_time > 2) {
+				left_Missile = Instantiate (Left_Missile, new Vector3 (Left_Launcher.gameObject.transform.position.x + 100, Left_Launcher.gameObject.transform.position.y, 0), transform.rotation);
+				Destroy (left_Missile, 6);
+				right_Missile = Instantiate (Right_Missile, new Vector3 (Right_Launcher.gameObject.transform.position.x - 100, Right_Launcher.gameObject.transform.position.y, 0), Right_Missile.transform.rotation);
+				Destroy (right_Missile, 6);
+				millsile_time = 0;
 			}
 
 

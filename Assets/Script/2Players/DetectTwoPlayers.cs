@@ -208,7 +208,7 @@ public class DetectTwoPlayers : MonoBehaviour {
 
 			if (!Double.IsInfinity(worldPos_r.x) && !Double.IsInfinity(worldPos_r.y))
 			{
-				Player1.transform.position = worldPos_r;
+				Player1.transform.position = new Vector3(worldPos_r.x + 500, worldPos_r.y ,0);
 			}
 
 		} else {
@@ -224,7 +224,7 @@ public class DetectTwoPlayers : MonoBehaviour {
 
 			if (!Double.IsInfinity(worldPos_r.x) && !Double.IsInfinity(worldPos_r.y))
 			{
-				Player2.transform.position = worldPos_r;
+				Player2.transform.position = new Vector3(worldPos_r.x - 100, worldPos_r.y ,0);
 			}
 
 		} else {
