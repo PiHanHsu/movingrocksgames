@@ -10,6 +10,9 @@ public class GameControl : MonoBehaviour {
 	public GameObject LeftHand;
 	public GameObject RightHand;
 
+	public AudioSource ButtonSound;
+	public AudioSource MatchSound;
+
 	public GameObject Card1_Number;
 	public GameObject Card2_Number;
 	public GameObject WinningText;
@@ -61,12 +64,14 @@ public class GameControl : MonoBehaviour {
 				Destroy (button1);
 				int r = (int)Random.Range (1, 5);
 				card1_number = r.ToString ();
+				ButtonSound.Play ();
 			}
 
 			if (Input.GetKeyDown (KeyCode.RightShift)) {
 				Destroy (button2);
 				int r = (int)Random.Range (1, 5);
 				card2_number = r.ToString ();
+				ButtonSound.Play ();
 			}
 
 
@@ -74,10 +79,12 @@ public class GameControl : MonoBehaviour {
 
 				//Card1.SetActive (false);
 				//Card2.SetActive (false);
+
 				Destroy (button1);
 				Destroy (button2);
 				if (diamond == null) {
 					diamond = Instantiate (Diamond, Diamond.transform.position, Diamond.transform.rotation);
+					MatchSound.Play();
 				}
 
 			}
@@ -107,6 +114,7 @@ public class GameControl : MonoBehaviour {
 
 			if (gameover) {
 				if (diamond != null) {
+					MatchSound.Stop();
 					attackEffect = Instantiate (AttackEffect, diamond.transform.position, transform.rotation);
 					isPlaying = false;
 					StartCoroutine (Gameover (winningText));
